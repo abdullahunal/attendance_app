@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.codeit.attendancecheck.consepts.member.Member;
 import com.example.codeit.attendancecheck.display.MemberDisplay;
-import com.example.codeit.attendancecheck.persistence.PersistenceDAO;
+import com.example.codeit.attendancecheck.persistence.IDatabaseOperations;
 
 import java.util.Optional;
 
@@ -18,12 +18,13 @@ public class LoginManager implements View.OnClickListener {
 
     private MemberDisplay display;
 
-    private PersistenceDAO persistenceDAO;
+    private IDatabaseOperations databaseOps;
 
-    public LoginManager(Button loginButton, MemberDisplay display, PersistenceDAO persistenceDAO) {
+    public LoginManager(Button loginButton, MemberDisplay display,
+            IDatabaseOperations databaseOps) {
         this.loginButton = loginButton;
         this.display = display;
-        this.persistenceDAO = persistenceDAO;
+        this.databaseOps = databaseOps;
         loginButton.setOnClickListener(this);
     }
 
@@ -33,7 +34,7 @@ public class LoginManager implements View.OnClickListener {
         LoginResult loginResult = new LoginResult();
         for (Member member : display.getMembers()) {
 
-            Optional<Member> optionalMember = persistenceDAO.readByAddress(member.getId());
+            Optional<Member> optionalMember = databaseOps.readByAddress(member.getMac());
             // TODO: name alani, kaydederken farkli, check ederken farkli olursa ne olacak?
             if (optionalMember.isPresent()) {
                 loginResult.getSuccessfullyMembers().add(member);

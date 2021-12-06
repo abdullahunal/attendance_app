@@ -14,17 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.codeit.attendancecheck.R;
+import com.example.codeit.attendancecheck.consepts.member.Member;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder> {
 
-    List<User> users;
+    List<Member> members;
     Context context;
     DBHelper dbHelper;
 
-    public UserAdapter(List<User> users, Context context) {
-        this.users = users;
+    public MemberAdapter(List<Member> members, Context context) {
+        this.members = members;
         this.context = context;
         dbHelper = new DBHelper(context);
     }
@@ -43,11 +44,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder,
             @SuppressLint("RecyclerView") int position) {
 
-        final User user = users.get(position);
+        final Member member = members.get(position);
 
-        holder.textViewID.setText(Integer.toString(user.getId()));
-        holder.editText_Name.setText(user.getName());
-        holder.editText_Mac.setText(user.getMac());
+        holder.textViewID.setText(Integer.toString(member.getId()));
+        holder.editText_Name.setText(member.getName());
+        holder.editText_Mac.setText(member.getMac());
 
         holder.button_Edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +56,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 String stringName = holder.editText_Name.getText().toString();
                 String stringMac = holder.editText_Mac.getText().toString();
 
-                dbHelper.updateUser(new User(user.getId(), stringName, stringMac));
+                dbHelper.updateUser(new Member(member.getId(), stringName, stringMac));
                 notifyDataSetChanged();
                 ((Activity) context).finish();
                 context.startActivity(((Activity) context).getIntent());
@@ -65,8 +66,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.button_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbHelper.deleteUser(user.getId());
-                users.remove(position);
+                dbHelper.deleteUser(member.getId());
+                members.remove(position);
                 notifyDataSetChanged();
             }
         });
@@ -75,7 +76,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return members.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

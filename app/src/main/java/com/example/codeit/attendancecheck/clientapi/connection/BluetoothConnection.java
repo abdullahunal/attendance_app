@@ -1,13 +1,8 @@
 package com.example.codeit.attendancecheck.clientapi.connection;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.os.ParcelUuid;
-
-import com.example.codeit.attendancecheck.consepts.member.BluetoothMember;
-import com.example.codeit.attendancecheck.consepts.member.Member;
 
 public class BluetoothConnection implements Connection {
 

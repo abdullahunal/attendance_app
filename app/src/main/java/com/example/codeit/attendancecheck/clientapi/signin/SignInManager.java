@@ -5,7 +5,7 @@ import android.widget.Button;
 
 import com.example.codeit.attendancecheck.consepts.member.Member;
 import com.example.codeit.attendancecheck.display.MemberDisplay;
-import com.example.codeit.attendancecheck.persistence.PersistenceDAO;
+import com.example.codeit.attendancecheck.persistence.IDatabaseOperations;
 
 public class SignInManager implements View.OnClickListener {
 
@@ -13,20 +13,20 @@ public class SignInManager implements View.OnClickListener {
 
     private final MemberDisplay display;
 
-    private final PersistenceDAO persistenceDAO;
+    private final IDatabaseOperations databaseOps;
 
     public SignInManager(Button signInButton, MemberDisplay display,
-            PersistenceDAO persistenceDAO) {
+            IDatabaseOperations databaseOps) {
         this.signInButton = signInButton;
         this.display = display;
-        this.persistenceDAO = persistenceDAO;
+        this.databaseOps = databaseOps;
         signInButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         for (Member member : display.getMembers()) {
-            persistenceDAO.create(member);
+            databaseOps.create(member);
         }
     }
 }

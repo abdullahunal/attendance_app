@@ -5,10 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.example.codeit.attendancecheck.consepts.member.Member;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DBHelper extends SQLiteOpenHelper implements IDatabaseOperations {
 
@@ -47,18 +52,18 @@ public class DBHelper extends SQLiteOpenHelper implements IDatabaseOperations {
 
     // ekle
 
-    public void addUser(User user) {
+    public void create(Member member) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.NAME, user.getName());
-        contentValues.put(DBHelper.MAC, user.getMac());
+        contentValues.put(DBHelper.NAME, member.getName());
+        contentValues.put(DBHelper.MAC, member.getMac());
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.insert(DBHelper.TABLE_NAME, null, contentValues);
     }
 
-    public List<User> getUserList() {
+    public List<Member> readAll() {
         String sql = "select * from " + TABLE_NAME;
         sqLiteDatabase = this.getReadableDatabase();
-        List<User> userList = new ArrayList<>();
+        List<Member> memberList = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
@@ -66,20 +71,20 @@ public class DBHelper extends SQLiteOpenHelper implements IDatabaseOperations {
                 int id = Integer.parseInt(cursor.getString(0));
                 String name = cursor.getString(1);
                 String mac = cursor.getString(2);
-                userList.add(new User(id, name, mac));
+                memberList.add(new Member(id, name, mac));
             } while (cursor.moveToNext());
         }
         cursor.close();
-        return userList;
+        return memberList;
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(Member member) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.NAME, user.getName());
-        contentValues.put(DBHelper.MAC, user.getMac());
+        contentValues.put(DBHelper.NAME, member.getName());
+        contentValues.put(DBHelper.MAC, member.getMac());
         sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.update(TABLE_NAME, contentValues, ID + " = ?", new String[]
-                {String.valueOf(user.getId())});
+                {String.valueOf(member.getId())});
         return true;
     }
 
@@ -90,4 +95,9 @@ public class DBHelper extends SQLiteOpenHelper implements IDatabaseOperations {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public Optional<Member> readByAddress(String id) {
+        return Optional.empty();
+    }
 }

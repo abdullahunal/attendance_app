@@ -1,35 +1,45 @@
 package com.example.codeit.attendancecheck.consepts.member;
 
-import java.util.List;
+public class Member {
 
-public abstract class Member {
+    private Integer id;
 
-    private String groupId;
+    private String name;
 
-    private  String id;
+    private String mac;
 
-    private  String name;
-
-    private List<String> attributes;
-
-    public Member(String id, String name) {
-        this.id = id;
+    public Member(String name, String mac) {
         this.name = name;
+        this.mac = mac;
     }
 
-    public void setId(String id) {
+    public Member(Integer id, String name, String mac) {
         this.id = id;
+        this.name = name;
+        this.mac = mac;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getMac() {
+        return mac;
     }
 
-    public String getName() {
-        return name;
+    public void setMac(String mac) {
+        this.mac = mac;
     }
 }

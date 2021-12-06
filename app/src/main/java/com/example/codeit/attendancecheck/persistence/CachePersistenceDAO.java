@@ -36,7 +36,7 @@ public class CachePersistenceDAO implements PersistenceDAO {
     @Override
     public Optional<Member> readByAddress(String address) {
         for (Member member : dataSource) {
-            if (member.getId().equalsIgnoreCase(address)) {
+            if (member.getMac().equalsIgnoreCase(address)) {
                 return Optional.of(member);
             }
         }
@@ -46,7 +46,7 @@ public class CachePersistenceDAO implements PersistenceDAO {
     @Override
     public boolean update(String oldAddress, Member newMember) {
         for (Member member : dataSource) {
-            if (member.getId().equalsIgnoreCase(oldAddress)) {
+            if (member.getMac().equalsIgnoreCase(oldAddress)) {
                 member.setId(newMember.getId());
                 member.setName(newMember.getName());
                 return true;
@@ -59,7 +59,7 @@ public class CachePersistenceDAO implements PersistenceDAO {
     public boolean deleteByAddress(String address) {
         while (dataSource.iterator().hasNext()) {
             Member member = dataSource.iterator().next();
-            if (member.getId().equalsIgnoreCase(address)) {
+            if (member.getMac().equalsIgnoreCase(address)) {
                 dataSource.remove(member);
                 return true;
             }

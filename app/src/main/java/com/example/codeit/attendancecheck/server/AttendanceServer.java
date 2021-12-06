@@ -21,8 +21,8 @@ import com.example.codeit.attendancecheck.consepts.member.Member;
 import com.example.codeit.attendancecheck.consepts.member.MemberManager;
 import com.example.codeit.attendancecheck.display.MemberDisplay;
 import com.example.codeit.attendancecheck.display.MemberDisplayImpl;
-import com.example.codeit.attendancecheck.persistence.CachePersistenceDAO;
-import com.example.codeit.attendancecheck.persistence.PersistenceDAO;
+import com.example.codeit.attendancecheck.persistence.DBHelper;
+import com.example.codeit.attendancecheck.persistence.IDatabaseOperations;
 import com.example.codeit.attendancecheck.statistic.StatisticManager;
 
 import java.util.ArrayList;
@@ -66,14 +66,15 @@ public class AttendanceServer extends Server {
 
 
         // Persistence
-        PersistenceDAO persistenceDAO = new CachePersistenceDAO();
+//        PersistenceDAO persistenceDAO = new CachePersistenceDAO();
+        IDatabaseOperations databaseOps = new DBHelper(mainActivity.getApplicationContext());
 
         Button signInButton = componentProvider.getComponent(ComponentName.SIGN);
-        SignInManager signInManager = new SignInManager(signInButton, display, persistenceDAO);
+        SignInManager signInManager = new SignInManager(signInButton, display, databaseOps);
 
 
         Button loginButton = componentProvider.getComponent(ComponentName.LOGIN);
-        LoginManager loginManager = new LoginManager(loginButton, display, persistenceDAO);
+        LoginManager loginManager = new LoginManager(loginButton, display, databaseOps);
 
 
         // ************************************************************************************* \\
