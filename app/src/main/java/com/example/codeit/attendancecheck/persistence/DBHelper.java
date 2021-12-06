@@ -97,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper implements IDatabaseOperations {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public Optional<Member> readByAddress(String id) {
+    public Optional<Member> readByAddress(String mac) {
         return Optional.empty();
     }
 }

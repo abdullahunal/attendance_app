@@ -11,8 +11,6 @@ public interface IDatabaseOperations {
 
     Optional<Member> readByAddress(String mac);
 
-    // User read(User user);
-
     List<Member> readAll();
 
     boolean updateUser(Member member);

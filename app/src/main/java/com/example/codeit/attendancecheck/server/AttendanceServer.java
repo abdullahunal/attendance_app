@@ -76,17 +76,6 @@ public class AttendanceServer extends Server {
         Button loginButton = componentProvider.getComponent(ComponentName.LOGIN);
         LoginManager loginManager = new LoginManager(loginButton, display, databaseOps);
 
-
-        // ************************************************************************************* \\
-
-
-        GroupLeader groupLeader = new GroupLeader(); // hoca
-        GroupManager groupManager = new GroupManager(); // ders
-        MemberManager memberManager = new MemberManager(); // ogrenci
-
-
-        StatisticManager statisticManager = new StatisticManager();
-
     }
 
 
