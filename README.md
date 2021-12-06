@@ -1,0 +1,2 @@
+# attendance
+bluetooth yoklama uygulaması
