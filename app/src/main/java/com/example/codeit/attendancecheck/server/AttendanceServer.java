@@ -12,9 +12,6 @@ import com.example.codeit.attendancecheck.clientapi.connection.BluetoothConnecti
 import com.example.codeit.attendancecheck.clientapi.connection.ConnectedDeviceManager;
 import com.example.codeit.attendancecheck.clientapi.connection.Connection;
 import com.example.codeit.attendancecheck.clientapi.login.LoginManager;
-import com.example.codeit.attendancecheck.clientapi.logut.LogoutManager;
-import com.example.codeit.attendancecheck.clientapi.request.RequestManager;
-import com.example.codeit.attendancecheck.clientapi.response.ResponseManager;
 import com.example.codeit.attendancecheck.clientapi.signin.SignInManager;
 import com.example.codeit.attendancecheck.components.ComponentName;
 import com.example.codeit.attendancecheck.components.ComponentProvider;
@@ -24,7 +21,6 @@ import com.example.codeit.attendancecheck.consepts.member.Member;
 import com.example.codeit.attendancecheck.consepts.member.MemberManager;
 import com.example.codeit.attendancecheck.display.MemberDisplay;
 import com.example.codeit.attendancecheck.display.MemberDisplayImpl;
-import com.example.codeit.attendancecheck.domain.check.AttendanceManager;
 import com.example.codeit.attendancecheck.persistence.CachePersistenceDAO;
 import com.example.codeit.attendancecheck.persistence.PersistenceDAO;
 import com.example.codeit.attendancecheck.statistic.StatisticManager;
@@ -55,14 +51,17 @@ public class AttendanceServer extends Server {
         MemberDisplay display = new MemberDisplayImpl(recyclerView);
 
         BluetoothConnectionListener connectedDeviceService = new ConnectedDeviceService(display);
-        ConnectedDeviceManager connectedDeviceManager = new ConnectedDeviceManager(mainActivity, connectedDeviceService);
+        ConnectedDeviceManager connectedDeviceManager =
+                new ConnectedDeviceManager(mainActivity, connectedDeviceService);
         connectedDeviceManager.initialize();
 
 
         // Bluetooth On/Off
         Connection connection = new BluetoothConnection();
-        ToggleButton connOnOffButton = componentProvider.getComponent(ComponentName.CONNECTION_ON_OF);
-        ConnectionOnOffService connOnOffService = new ConnectionOnOffService(connection, connOnOffButton);
+        ToggleButton connOnOffButton =
+                componentProvider.getComponent(ComponentName.CONNECTION_ON_OF);
+        ConnectionOnOffService connOnOffService =
+                new ConnectionOnOffService(connection, connOnOffButton);
         connOnOffService.start();
 
 
@@ -77,25 +76,12 @@ public class AttendanceServer extends Server {
         LoginManager loginManager = new LoginManager(loginButton, display, persistenceDAO);
 
 
-        // ?
-        LogoutManager logoutManager = new LogoutManager();
-
-
-
-
         // ************************************************************************************* \\
-
-
-        RequestManager requestManager = new RequestManager();
-        ResponseManager responseManager = new ResponseManager();
-
 
 
         GroupLeader groupLeader = new GroupLeader(); // hoca
         GroupManager groupManager = new GroupManager(); // ders
         MemberManager memberManager = new MemberManager(); // ogrenci
-
-        AttendanceManager attendanceManager = new AttendanceManager(groupManager, memberManager);
 
 
         StatisticManager statisticManager = new StatisticManager();
