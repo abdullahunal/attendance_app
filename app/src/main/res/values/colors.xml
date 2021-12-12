@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="list">#FE5F55</color>
     <color name="onOff">#FF0082fc</color>
     <color name="login">#FF346751</color>
     <color name="signIn">#FF7B113A</color>

@@ -1,4 +1,4 @@
-package com.example.codeit.attendancecheck.components;
+package com.example.codeit.attendancecheck.layout;
 
 import android.view.View;
 

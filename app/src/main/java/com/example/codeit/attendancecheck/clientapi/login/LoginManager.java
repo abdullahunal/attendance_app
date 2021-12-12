@@ -14,11 +14,11 @@ import java.util.Optional;
 
 public class LoginManager implements View.OnClickListener {
 
-    private Button loginButton;
+    private final Button loginButton;
 
-    private MemberDisplay display;
+    private final MemberDisplay display;
 
-    private IDatabaseOperations databaseOps;
+    private final IDatabaseOperations databaseOps;
 
     public LoginManager(Button loginButton, MemberDisplay display,
             IDatabaseOperations databaseOps) {

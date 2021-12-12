@@ -1,9 +1,12 @@
 package com.example.codeit.attendancecheck.server;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.codeit.attendancecheck.MainActivity;
@@ -11,19 +14,17 @@ import com.example.codeit.attendancecheck.clientapi.connection.BluetoothConnecti
 import com.example.codeit.attendancecheck.clientapi.connection.BluetoothConnectionListener;
 import com.example.codeit.attendancecheck.clientapi.connection.ConnectedDeviceManager;
 import com.example.codeit.attendancecheck.clientapi.connection.Connection;
+import com.example.codeit.attendancecheck.clientapi.listusers.UserListingManager;
 import com.example.codeit.attendancecheck.clientapi.login.LoginManager;
 import com.example.codeit.attendancecheck.clientapi.signin.SignInManager;
-import com.example.codeit.attendancecheck.components.ComponentName;
-import com.example.codeit.attendancecheck.components.ComponentProvider;
-import com.example.codeit.attendancecheck.consepts.group.GroupLeader;
-import com.example.codeit.attendancecheck.consepts.group.GroupManager;
 import com.example.codeit.attendancecheck.consepts.member.Member;
-import com.example.codeit.attendancecheck.consepts.member.MemberManager;
+import com.example.codeit.attendancecheck.display.DisplayAdapter;
 import com.example.codeit.attendancecheck.display.MemberDisplay;
 import com.example.codeit.attendancecheck.display.MemberDisplayImpl;
+import com.example.codeit.attendancecheck.layout.ComponentName;
+import com.example.codeit.attendancecheck.layout.ComponentProvider;
 import com.example.codeit.attendancecheck.persistence.DBHelper;
 import com.example.codeit.attendancecheck.persistence.IDatabaseOperations;
-import com.example.codeit.attendancecheck.statistic.StatisticManager;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -46,28 +47,36 @@ public class AttendanceServer extends Server {
         ComponentProvider componentProvider = ComponentProvider.getInstance();
         EnumMap<ComponentName, View> components = componentProvider.getComponents(mainActivity);
 
+        Context context = mainActivity.getApplicationContext();
 
         RecyclerView recyclerView = componentProvider.getComponent(ComponentName.CONNECTED_DEVICES);
+        DisplayAdapter displayAdapter = new DisplayAdapter(context, new ArrayList<>());
+        recyclerView.setAdapter(displayAdapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
         MemberDisplay display = new MemberDisplayImpl(recyclerView);
 
         BluetoothConnectionListener connectedDeviceService = new ConnectedDeviceService(display);
-        ConnectedDeviceManager connectedDeviceManager =
-                new ConnectedDeviceManager(mainActivity, connectedDeviceService);
+        ConnectedDeviceManager connectedDeviceManager = new ConnectedDeviceManager(mainActivity, connectedDeviceService);
         connectedDeviceManager.initialize();
 
 
         // Bluetooth On/Off
         Connection connection = new BluetoothConnection();
-        ToggleButton connOnOffButton =
-                componentProvider.getComponent(ComponentName.CONNECTION_ON_OF);
-        ConnectionOnOffService connOnOffService =
-                new ConnectionOnOffService(connection, connOnOffButton);
+        ToggleButton connOnOffButton = componentProvider.getComponent(ComponentName.CONNECTION_ON_OF);
+        ConnectionOnOffService connOnOffService = new ConnectionOnOffService(connection, connOnOffButton);
         connOnOffService.start();
+
+
+        // List Users
+        Button btnListUsers = componentProvider.getComponent(ComponentName.LIST_USERS);
+        UserListingManager listingManager =
+                new UserListingManager(btnListUsers, BluetoothAdapter.getDefaultAdapter(), display);
 
 
         // Persistence
 //        PersistenceDAO persistenceDAO = new CachePersistenceDAO();
-        IDatabaseOperations databaseOps = new DBHelper(mainActivity.getApplicationContext());
+        IDatabaseOperations databaseOps = new DBHelper(context);
 
         Button signInButton = componentProvider.getComponent(ComponentName.SIGN);
         SignInManager signInManager = new SignInManager(signInButton, display, databaseOps);

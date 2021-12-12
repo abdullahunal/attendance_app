@@ -1,4 +1,4 @@
-package com.example.codeit.attendancecheck.components;
+package com.example.codeit.attendancecheck.layout;
 
 import android.view.View;
 
@@ -61,6 +61,8 @@ public class ComponentProvider {
         views.put(ComponentName.CONNECTED_DEVICES, mainActivity.findViewById(R.id.rvConnectedDevices));
 
         views.put(ComponentName.CONNECTION_ON_OF, mainActivity.findViewById(R.id.btnOnOff));
+
+        views.put(ComponentName.LIST_USERS, mainActivity.findViewById(R.id.btnListUsers));
 
         views.put(ComponentName.LOGIN, mainActivity.findViewById(R.id.btnLogin));
 

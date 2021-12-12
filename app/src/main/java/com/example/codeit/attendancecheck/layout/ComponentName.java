@@ -1,4 +1,4 @@
-package com.example.codeit.attendancecheck.components;
+package com.example.codeit.attendancecheck.layout;
 
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +13,8 @@ public enum ComponentName {
     CONNECTED_DEVICES(RecyclerView.class),
 
     CONNECTION_ON_OF(ToggleButton.class),
+
+    LIST_USERS(Button.class),
 
     LOGIN(Button.class),
 

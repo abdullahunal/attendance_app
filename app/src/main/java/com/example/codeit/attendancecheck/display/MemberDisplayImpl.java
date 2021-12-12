@@ -30,7 +30,6 @@ public class MemberDisplayImpl implements MemberDisplay {
     public void addMember(Member member) {
         memberList.add(member);
         updateDisplay();
-
     }
 
     @Override
@@ -42,12 +41,12 @@ public class MemberDisplayImpl implements MemberDisplay {
     private synchronized void updateDisplay() {
         recyclerView.removeAllViews();
         for (Member member : memberList) {
-            View view = parseToDisplayItem(member);
+            TextView view = parseToDisplayItem(member);
             recyclerView.addView(view);
         }
     }
 
-    private View parseToDisplayItem(Member member) {
+    private TextView parseToDisplayItem(Member member) {
         TextView textView = new TextView(recyclerView.getContext());
         textView.setText("Name: " + member.getName() + "MAC: " + member.getId());
         return textView;
