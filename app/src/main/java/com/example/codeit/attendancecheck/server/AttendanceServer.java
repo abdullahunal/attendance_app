@@ -15,9 +15,8 @@ import com.example.codeit.attendancecheck.clientapi.connection.BluetoothConnecti
 import com.example.codeit.attendancecheck.clientapi.connection.ConnectedDeviceManager;
 import com.example.codeit.attendancecheck.clientapi.connection.Connection;
 import com.example.codeit.attendancecheck.clientapi.listusers.UserListingManager;
-import com.example.codeit.attendancecheck.clientapi.login.LoginManager;
-import com.example.codeit.attendancecheck.clientapi.signin.SignInManager;
-import com.example.codeit.attendancecheck.consepts.member.Member;
+import com.example.codeit.attendancecheck.clientapi.login.CheckManager;
+import com.example.codeit.attendancecheck.clientapi.signin.RegisterManager;
 import com.example.codeit.attendancecheck.display.DisplayAdapter;
 import com.example.codeit.attendancecheck.display.MemberDisplay;
 import com.example.codeit.attendancecheck.display.MemberDisplayImpl;
@@ -28,14 +27,10 @@ import com.example.codeit.attendancecheck.persistence.IDatabaseOperations;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
 
 public class AttendanceServer extends Server {
 
     private final MainActivity mainActivity;
-
-    private final List<Member> successfullyMembers = new ArrayList<>();
-    private final List<Member> failedMembers = new ArrayList<>();
 
     public AttendanceServer(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -78,12 +73,12 @@ public class AttendanceServer extends Server {
 //        PersistenceDAO persistenceDAO = new CachePersistenceDAO();
         IDatabaseOperations databaseOps = new DBHelper(context);
 
-        Button signInButton = componentProvider.getComponent(ComponentName.SIGN);
-        SignInManager signInManager = new SignInManager(signInButton, display, databaseOps);
+        Button btnRegister = componentProvider.getComponent(ComponentName.REGISTER);
+        RegisterManager registerManager = new RegisterManager(btnRegister, display, databaseOps);
 
 
-        Button loginButton = componentProvider.getComponent(ComponentName.LOGIN);
-        LoginManager loginManager = new LoginManager(loginButton, display, databaseOps);
+        Button loginButton = componentProvider.getComponent(ComponentName.CHECK);
+        CheckManager checkManager = new CheckManager(loginButton, display, databaseOps);
 
     }
 

@@ -10,7 +10,7 @@
 
     <color name="list">#FE5F55</color>
     <color name="onOff">#FF0082fc</color>
-    <color name="login">#FF346751</color>
-    <color name="signIn">#FF7B113A</color>
+    <color name="check">#FF346751</color>
+    <color name="register">#FF7B113A</color>
 
 </resources>

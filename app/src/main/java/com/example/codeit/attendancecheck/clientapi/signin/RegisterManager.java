@@ -7,7 +7,7 @@ import com.example.codeit.attendancecheck.consepts.member.Member;
 import com.example.codeit.attendancecheck.display.MemberDisplay;
 import com.example.codeit.attendancecheck.persistence.IDatabaseOperations;
 
-public class SignInManager implements View.OnClickListener {
+public class RegisterManager implements View.OnClickListener {
 
     private final Button signInButton;
 
@@ -15,7 +15,7 @@ public class SignInManager implements View.OnClickListener {
 
     private final IDatabaseOperations databaseOps;
 
-    public SignInManager(Button signInButton, MemberDisplay display,
+    public RegisterManager(Button signInButton, MemberDisplay display,
             IDatabaseOperations databaseOps) {
         this.signInButton = signInButton;
         this.display = display;

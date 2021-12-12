@@ -12,13 +12,13 @@ public enum ComponentName {
 
     CONNECTED_DEVICES(RecyclerView.class),
 
-    CONNECTION_ON_OF(ToggleButton.class),
-
     LIST_USERS(Button.class),
 
-    LOGIN(Button.class),
+    CONNECTION_ON_OF(ToggleButton.class),
 
-    SIGN(Button.class);
+    CHECK(Button.class),
+
+    REGISTER(Button.class);
 
 
     private final Class<? extends View> viewClass;

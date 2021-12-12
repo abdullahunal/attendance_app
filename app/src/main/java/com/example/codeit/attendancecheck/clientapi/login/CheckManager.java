@@ -12,7 +12,7 @@ import com.example.codeit.attendancecheck.persistence.IDatabaseOperations;
 
 import java.util.Optional;
 
-public class LoginManager implements View.OnClickListener {
+public class CheckManager implements View.OnClickListener {
 
     private final Button loginButton;
 
@@ -20,7 +20,7 @@ public class LoginManager implements View.OnClickListener {
 
     private final IDatabaseOperations databaseOps;
 
-    public LoginManager(Button loginButton, MemberDisplay display,
+    public CheckManager(Button loginButton, MemberDisplay display,
             IDatabaseOperations databaseOps) {
         this.loginButton = loginButton;
         this.display = display;
