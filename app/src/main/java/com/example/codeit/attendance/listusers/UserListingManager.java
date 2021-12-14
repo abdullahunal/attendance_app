@@ -1,4 +1,4 @@
-package com.example.codeit.attendance.clientapi.listusers;
+package com.example.codeit.attendance.listusers;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

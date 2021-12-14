@@ -3,7 +3,7 @@ package com.example.codeit.attendance.server;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import com.example.codeit.attendance.clientapi.connection.Connection;
+import com.example.codeit.attendance.connection.Connection;
 
 public class ConnectionOnOffService implements CompoundButton.OnCheckedChangeListener {
 

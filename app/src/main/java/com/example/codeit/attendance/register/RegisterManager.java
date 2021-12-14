@@ -1,4 +1,4 @@
-package com.example.codeit.attendance.clientapi.register;
+package com.example.codeit.attendance.register;
 
 import android.view.View;
 import android.widget.Button;

@@ -1,4 +1,4 @@
-package com.example.codeit.attendance.clientapi.connection;
+package com.example.codeit.attendance.connection;
 
 import android.bluetooth.BluetoothDevice;
 

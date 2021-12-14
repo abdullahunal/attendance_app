@@ -2,7 +2,7 @@ package com.example.codeit.attendance.server;
 
 import android.bluetooth.BluetoothDevice;
 
-import com.example.codeit.attendance.clientapi.connection.BluetoothConnectionListener;
+import com.example.codeit.attendance.connection.BluetoothConnectionListener;
 import com.example.codeit.attendance.consepts.member.BluetoothMember;
 import com.example.codeit.attendance.consepts.member.Member;
 import com.example.codeit.attendance.display.MemberDisplay;

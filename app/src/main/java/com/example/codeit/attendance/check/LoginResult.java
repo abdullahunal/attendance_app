@@ -1,4 +1,4 @@
-package com.example.codeit.attendance.clientapi.check;
+package com.example.codeit.attendance.check;
 
 import com.example.codeit.attendance.consepts.member.Member;
 
