@@ -15,8 +15,8 @@ import com.example.codeit.attendance.clientapi.connection.BluetoothConnectionLis
 import com.example.codeit.attendance.clientapi.connection.ConnectedDeviceManager;
 import com.example.codeit.attendance.clientapi.connection.Connection;
 import com.example.codeit.attendance.clientapi.listusers.UserListingManager;
-import com.example.codeit.attendance.clientapi.login.CheckManager;
-import com.example.codeit.attendance.clientapi.signin.RegisterManager;
+import com.example.codeit.attendance.clientapi.check.CheckManager;
+import com.example.codeit.attendance.clientapi.register.RegisterManager;
 import com.example.codeit.attendance.display.MemberDisplay;
 import com.example.codeit.attendance.display.MemberDisplayImpl;
 import com.example.codeit.attendance.layout.ComponentName;
