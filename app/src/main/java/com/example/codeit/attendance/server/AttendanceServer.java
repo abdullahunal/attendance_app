@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.codeit.attendance.MainActivity;
@@ -17,7 +16,6 @@ import com.example.codeit.attendance.clientapi.connection.Connection;
 import com.example.codeit.attendance.clientapi.listusers.UserListingManager;
 import com.example.codeit.attendance.clientapi.login.CheckManager;
 import com.example.codeit.attendance.clientapi.signin.RegisterManager;
-import com.example.codeit.attendance.display.DisplayAdapter;
 import com.example.codeit.attendance.display.MemberDisplay;
 import com.example.codeit.attendance.display.MemberDisplayImpl;
 import com.example.codeit.attendance.layout.ComponentName;
@@ -25,7 +23,6 @@ import com.example.codeit.attendance.layout.ComponentProvider;
 import com.example.codeit.attendance.persistence.DBHelper;
 import com.example.codeit.attendance.persistence.IDatabaseOperations;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class AttendanceServer extends Server {
@@ -46,11 +43,7 @@ public class AttendanceServer extends Server {
 
         // Display
         RecyclerView recyclerView = componentProvider.getComponent(ComponentName.CONNECTED_DEVICES);
-        DisplayAdapter displayAdapter = new DisplayAdapter(context, new ArrayList<>());
-        recyclerView.setAdapter(displayAdapter);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-        MemberDisplay display = new MemberDisplayImpl(recyclerView);
+        MemberDisplay display = new MemberDisplayImpl(mainActivity,recyclerView);
 
 
         BluetoothConnectionListener connectedDeviceService = new ConnectedDeviceService(display);

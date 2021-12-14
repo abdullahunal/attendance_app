@@ -58,7 +58,7 @@ public class ComponentProvider {
 
         views.put(ComponentName.MAIN_LAYOUT, mainActivity.findViewById(R.id.main_layout));
 
-        views.put(ComponentName.CONNECTED_DEVICES, mainActivity.findViewById(R.id.rvConnectedDevices));
+        views.put(ComponentName.CONNECTED_DEVICES, mainActivity.findViewById(R.id.recycler_view));
 
         views.put(ComponentName.LIST_USERS, mainActivity.findViewById(R.id.btnListUsers));
 

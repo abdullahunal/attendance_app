@@ -1,9 +1,15 @@
 package com.example.codeit.attendance.display;
 
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.codeit.attendance.MainActivity;
 import com.example.codeit.attendance.consepts.member.Member;
 
 import java.util.ArrayList;
@@ -13,11 +19,42 @@ public class MemberDisplayImpl implements MemberDisplay {
 
     private final List<Member> memberList;
 
-    private final RecyclerView recyclerView;
+    private final RecyclerView recycler_view;
 
-    public MemberDisplayImpl(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-        this.memberList = new ArrayList<>();
+    public MemberDisplayImpl(MainActivity mainActivity, RecyclerView recycler_view) {
+        this.recycler_view = recycler_view;
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity.getApplicationContext());
+
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.scrollToPosition(0);
+
+        recycler_view.setLayoutManager(layoutManager);
+
+        memberList = new ArrayList<Member>();
+
+        /*memberList.add(new Member("Cengiz", "04654654489"));
+        memberList.add(new Member("haydar", "9498498"));
+        memberList.add(new Member("Kemal", "15941987498"));
+        memberList.add(new Member("Congulus", "475637856785"));
+        memberList.add(new Member("Necdet", "7524121"));
+        memberList.add(new Member("Zımzımettin", "7578"));
+        memberList.add(new Member("Şemelemettin", "456345678"));
+        memberList.add(new Member("Niyazi", "151965"));*/
+
+        RecyclerViewAdapter adapter_items = new RecyclerViewAdapter(memberList, new ICustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Log.d("position", "Tıklanan Pozisyon:" + position);
+                Member member = memberList.get(position);
+                Toast.makeText(mainActivity.getApplicationContext(), "pozisyon:" + " " + position + " " + "Ad:" + member.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        recycler_view.setHasFixedSize(true);
+
+        recycler_view.setAdapter(adapter_items);
+
+        recycler_view.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
@@ -38,29 +75,29 @@ public class MemberDisplayImpl implements MemberDisplay {
     }
 
     private synchronized void updateDisplay() {
-        recyclerView.removeAllViews();
+        recycler_view.removeAllViews();
         for (Member member : memberList) {
             TextView view = parseToDisplayItem(member);
-            recyclerView.addView(view);
+            recycler_view.addView(view);
         }
     }
 
     private TextView parseToDisplayItem(Member member) {
-        TextView textView = new TextView(recyclerView.getContext());
+        TextView textView = new TextView(recycler_view.getContext());
         textView.setText("Name: " + member.getName() + "MAC: " + member.getId());
         return textView;
     }
 
 
     private void addToDisplay(Member member) {
-        TextView textView = new TextView(recyclerView.getContext());
+        TextView textView = new TextView(recycler_view.getContext());
         textView.setText("Name: " + member.getName() + "MAC: " + member.getId());
-        recyclerView.addView(textView);
+        recycler_view.addView(textView);
     }
 
     private void removeFromDisplay(Member member) {
-        TextView textView = new TextView(recyclerView.getContext());
+        TextView textView = new TextView(recycler_view.getContext());
         textView.setText("Name: " + member.getName() + "MAC: " + member.getId());
-        recyclerView.removeView(textView);
+        recycler_view.removeView(textView);
     }
 }
