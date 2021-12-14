@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public enum ComponentName {
@@ -18,8 +19,9 @@ public enum ComponentName {
 
     CHECK(Button.class),
 
-    REGISTER(Button.class);
+    REGISTER(Button.class),
 
+    CARD_VIEW(CardView.class);
 
     private final Class<? extends View> viewClass;
 

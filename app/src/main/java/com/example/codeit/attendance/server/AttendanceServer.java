@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.codeit.attendance.MainActivity;
@@ -41,9 +42,11 @@ public class AttendanceServer extends Server {
 
         Context context = mainActivity.getApplicationContext();
 
+        CardView cardView = componentProvider.getComponent(ComponentName.CARD_VIEW);
+
         // Display
         RecyclerView recyclerView = componentProvider.getComponent(ComponentName.CONNECTED_DEVICES);
-        MemberDisplay display = new MemberDisplayImpl(mainActivity,recyclerView);
+        MemberDisplay display = new MemberDisplayImpl(mainActivity,recyclerView,cardView);
 
 
         BluetoothConnectionListener connectedDeviceService = new ConnectedDeviceService(display);

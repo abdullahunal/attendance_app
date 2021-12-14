@@ -68,6 +68,7 @@ public class ComponentProvider {
 
         views.put(ComponentName.REGISTER, mainActivity.findViewById(R.id.btnRegister));
 
+        views.put(ComponentName.CARD_VIEW, mainActivity.findViewById(R.id.card_view));
 
         return views;
     }

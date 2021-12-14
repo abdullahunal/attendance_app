@@ -31,14 +31,13 @@ public class UserListingManager implements View.OnClickListener {
     public List<Member> listUsers() {
         List<Member> members = new ArrayList<>();
         for (BluetoothDevice bondedDevice : bluetoothAdapter.getBondedDevices()) {
-            String name = bondedDevice.getName();
-            String address = bondedDevice.getAddress();
-            members.add(new Member(name, address));
+
+            if (bondedDevice.getBondState()== BluetoothDevice.BOND_BONDED) {
+                String name = bondedDevice.getName();
+                String address = bondedDevice.getAddress();
+                members.add(new Member(name, address));
+            }
         }
-        members.add(new Member("Hüseyin", "işlşilişliş"));
-        members.add(new Member("Abdullah", "aaaaaaaaa"));
-        members.add(new Member("Hamza", "aslidjaslik"));
-        members.add(new Member("Muhamemd", "ououououou"));
         return members;
     }
 

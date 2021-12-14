@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,11 +19,14 @@ import java.util.List;
 public class MemberDisplayImpl implements MemberDisplay {
 
     private final List<Member> memberList;
-
     private final RecyclerView recycler_view;
+    private final CardView cardView;
+    private final MainActivity mainActivity;
 
-    public MemberDisplayImpl(MainActivity mainActivity, RecyclerView recycler_view) {
+    public MemberDisplayImpl(MainActivity mainActivity, RecyclerView recycler_view, CardView cardView) {
         this.recycler_view = recycler_view;
+        this.cardView = cardView;
+        this.mainActivity = mainActivity;
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(mainActivity.getApplicationContext());
 
@@ -76,16 +80,27 @@ public class MemberDisplayImpl implements MemberDisplay {
 
     private synchronized void updateDisplay() {
         recycler_view.removeAllViews();
-        for (Member member : memberList) {
-            TextView view = parseToDisplayItem(member);
+        RecyclerViewAdapter adapter_items = new RecyclerViewAdapter(memberList, new ICustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Log.d("position", "Tıklanan Pozisyon:" + position);
+                Member member = memberList.get(position);
+                Toast.makeText(mainActivity.getApplicationContext(), "pozisyon:" + " " + position + " " + "Ad:" + member.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        recycler_view.setAdapter(adapter_items);
+
+        /*for (Member member : memberList) {
+            CardView view = parseToDisplayItem(member);
             recycler_view.addView(view);
-        }
+        }*/
     }
 
-    private TextView parseToDisplayItem(Member member) {
-        TextView textView = new TextView(recycler_view.getContext());
-        textView.setText("Name: " + member.getName() + "MAC: " + member.getId());
-        return textView;
+    private CardView parseToDisplayItem(Member member) {
+
+
+        // cardView. setText("Name: " + member.getName() + "MAC: " + member.getMac());
+        return cardView;
     }
 
 
