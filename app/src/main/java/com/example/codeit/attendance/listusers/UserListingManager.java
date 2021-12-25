@@ -5,46 +5,31 @@ import android.bluetooth.BluetoothDevice;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.codeit.attendance.consepts.member.Member;
-import com.example.codeit.attendance.display.MemberDisplay;
+import com.example.codeit.attendance.connection.BluetoothConnectionListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Deprecated
 public class UserListingManager implements View.OnClickListener {
 
     private final Button btnListUsers;
 
     private final BluetoothAdapter bluetoothAdapter;
 
-    private final MemberDisplay display;
+    private final BluetoothConnectionListener bluetoothConnectionListener;
 
     public UserListingManager(Button btnListUsers,
-            BluetoothAdapter bluetoothAdapter,
-            MemberDisplay display) {
+            BluetoothConnectionListener bluetoothConnectionListener) {
         this.btnListUsers = btnListUsers;
-        this.bluetoothAdapter = bluetoothAdapter;
-        this.display = display;
+        this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.bluetoothConnectionListener = bluetoothConnectionListener;
         btnListUsers.setOnClickListener(this);
-    }
-
-    public List<Member> listUsers() {
-        List<Member> members = new ArrayList<>();
-        for (BluetoothDevice bondedDevice : bluetoothAdapter.getBondedDevices()) {
-
-            if (bondedDevice.getBondState()== BluetoothDevice.BOND_BONDED) {
-                String name = bondedDevice.getName();
-                String address = bondedDevice.getAddress();
-                members.add(new Member(name, address));
-            }
-        }
-        return members;
     }
 
     @Override
     public void onClick(View v) {
-        for (Member member : listUsers()) {
-            display.addMember(member);
+        for (BluetoothDevice bondedDevice : bluetoothAdapter.getBondedDevices()) {
+            if (bondedDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
+                bluetoothConnectionListener.bluetoothDeviceConnected(bondedDevice);
+            }
         }
     }
 }

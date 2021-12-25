@@ -1,6 +1,5 @@
 package com.example.codeit.attendance.server;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -10,19 +9,21 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.codeit.attendance.MainActivity;
+import com.example.codeit.attendance.check.AttendanceResultListener;
+import com.example.codeit.attendance.check.AttendanceResultListenerImpl;
+import com.example.codeit.attendance.check.CheckManager;
+import com.example.codeit.attendance.check.ResultActivity;
 import com.example.codeit.attendance.connection.BluetoothConnection;
 import com.example.codeit.attendance.connection.BluetoothConnectionListener;
 import com.example.codeit.attendance.connection.ConnectedDeviceManager;
 import com.example.codeit.attendance.connection.Connection;
-import com.example.codeit.attendance.listusers.UserListingManager;
-import com.example.codeit.attendance.check.CheckManager;
-import com.example.codeit.attendance.register.RegisterManager;
 import com.example.codeit.attendance.display.MemberDisplay;
 import com.example.codeit.attendance.display.MemberDisplayImpl;
 import com.example.codeit.attendance.layout.ComponentName;
 import com.example.codeit.attendance.layout.ComponentProvider;
 import com.example.codeit.attendance.persistence.DBHelper;
 import com.example.codeit.attendance.persistence.IDatabaseOperations;
+import com.example.codeit.attendance.register.RegisterManager;
 
 import java.util.EnumMap;
 
@@ -46,12 +47,13 @@ public class AttendanceServer extends Server {
 
         // Display
         RecyclerView recyclerView = componentProvider.getComponent(ComponentName.CONNECTED_DEVICES);
-        MemberDisplay display = new MemberDisplayImpl(mainActivity,recyclerView,cardView);
+        MemberDisplay display = new MemberDisplayImpl(mainActivity, recyclerView, cardView);
 
 
-        BluetoothConnectionListener connectedDeviceService = new ConnectedDeviceService(display);
-        ConnectedDeviceManager connectedDeviceManager = new ConnectedDeviceManager(mainActivity, connectedDeviceService);
-        connectedDeviceManager.initialize();
+        // Catch Bluetooth Connection
+        BluetoothConnectionListener bluetoothConnectionListener = new BluetoothConnectionListenerImpl(display);
+        ConnectedDeviceManager acceptedDeviceManager = new ConnectedDeviceManager(mainActivity, bluetoothConnectionListener);
+        acceptedDeviceManager.listen();
 
 
         // Bluetooth On/Off
@@ -61,23 +63,27 @@ public class AttendanceServer extends Server {
         connOnOffService.start();
 
 
-        // List Users
-        Button btnListUsers = componentProvider.getComponent(ComponentName.LIST_USERS);
-        UserListingManager listingManager =
-                new UserListingManager(btnListUsers, BluetoothAdapter.getDefaultAdapter(), display);
+//        // List Users
+//        Button btnListUsers = componentProvider.getComponent(ComponentName.LIST_USERS);
+//        UserListingManager listingManager = new UserListingManager(btnListUsers, bluetoothConnectionListener);
 
 
         // Persistence
 //        PersistenceDAO persistenceDAO = new CachePersistenceDAO();
         IDatabaseOperations databaseOps = new DBHelper(context);
 
+
         Button btnRegister = componentProvider.getComponent(ComponentName.REGISTER);
         RegisterManager registerManager = new RegisterManager(btnRegister, display, databaseOps);
 
 
-        Button loginButton = componentProvider.getComponent(ComponentName.CHECK);
-        CheckManager checkManager = new CheckManager(loginButton, display, databaseOps);
+        ResultActivity resultActivity = new ResultActivity(); // TODO: bunu sen yazacan, sonuclari listeleyecegin xml bu.
+        AttendanceResultListener attendanceResultListener = new AttendanceResultListenerImpl(resultActivity);
+        Button checkButton = componentProvider.getComponent(ComponentName.CHECK);
+        CheckManager checkManager = new CheckManager(checkButton, display, databaseOps, attendanceResultListener);
 
+//        StatisticManager statisticManager = new StatisticManager();
+//        statisticManager.add(attendanceResultListener);
     }
 
 

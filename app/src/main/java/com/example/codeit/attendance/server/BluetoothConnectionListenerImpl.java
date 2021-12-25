@@ -7,11 +7,15 @@ import com.example.codeit.attendance.consepts.member.BluetoothMember;
 import com.example.codeit.attendance.consepts.member.Member;
 import com.example.codeit.attendance.display.MemberDisplay;
 
-public class ConnectedDeviceService implements BluetoothConnectionListener {
+import java.util.logging.Logger;
+
+public class BluetoothConnectionListenerImpl implements BluetoothConnectionListener {
+
+    private final Logger LOG = Logger.getLogger("BluetoothConnectionListenerImpl");
 
     private final MemberDisplay display;
 
-    public ConnectedDeviceService(MemberDisplay display) {
+    public BluetoothConnectionListenerImpl(MemberDisplay display) {
         this.display = display;
     }
 
@@ -24,6 +28,7 @@ public class ConnectedDeviceService implements BluetoothConnectionListener {
     @Override
     public void bluetoothDeviceDisconnected(BluetoothDevice device) {
         Member member = new BluetoothMember(device);
-        display.removeMember(member);
+//        display.removeMember(member);
+        LOG.info("Device connection has closed. Member name: " + member.getName());
     }
 }

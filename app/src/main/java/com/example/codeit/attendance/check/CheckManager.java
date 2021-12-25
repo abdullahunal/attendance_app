@@ -6,11 +6,8 @@ import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.codeit.attendance.consepts.member.Member;
 import com.example.codeit.attendance.display.MemberDisplay;
 import com.example.codeit.attendance.persistence.IDatabaseOperations;
-
-import java.util.Optional;
 
 public class CheckManager implements View.OnClickListener {
 
@@ -20,29 +17,24 @@ public class CheckManager implements View.OnClickListener {
 
     private final IDatabaseOperations databaseOps;
 
+    private final AttendanceResultListener attendanceResultListener;
+
+    private final CheckResult checkResult;
+
     public CheckManager(Button loginButton, MemberDisplay display,
-            IDatabaseOperations databaseOps) {
+            IDatabaseOperations databaseOps, AttendanceResultListener attendanceResultListener) {
         this.loginButton = loginButton;
         this.display = display;
         this.databaseOps = databaseOps;
+        this.attendanceResultListener = attendanceResultListener;
+        this.checkResult = new CheckResult();
         loginButton.setOnClickListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
-        LoginResult loginResult = new LoginResult();
-        for (Member member : display.getMembers()) {
-
-            Optional<Member> optionalMember = databaseOps.readByAddress(member.getMac());
-            // TODO: name alani, kaydederken farkli, check ederken farkli olursa ne olacak?
-            if (optionalMember.isPresent()) {
-                loginResult.getSuccessfullyMembers().add(member);
-            } else {
-                loginResult.getFailedMembers().add(member);
-            }
-        }
-
-//        return loginResult;
+        checkResult.evaluateResult(display.getMembers(), databaseOps.readAll());
+        attendanceResultListener.attendanceDone(checkResult);
     }
 }
