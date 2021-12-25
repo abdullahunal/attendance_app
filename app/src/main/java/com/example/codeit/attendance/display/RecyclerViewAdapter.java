@@ -26,8 +26,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(view);
 
             card_view = (CardView)view.findViewById(R.id.card_view);
-            txt_name = (TextView)view.findViewById(R.id.person_name);
-            txt_mac = (TextView)view.findViewById(R.id.person_age);
+            txt_name = (TextView)view.findViewById(R.id.member_name);
+            txt_mac = (TextView)view.findViewById(R.id.member_mac);
         }
     }
 
