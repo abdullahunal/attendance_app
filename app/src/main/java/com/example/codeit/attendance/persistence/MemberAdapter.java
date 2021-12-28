@@ -46,7 +46,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
         final Member member = members.get(position);
 
-        holder.textViewID.setText(Integer.toString(member.getId()));
         holder.editText_Name.setText(member.getName());
         holder.editText_Mac.setText(member.getMac());
 
@@ -81,7 +80,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewID;
         EditText editText_Name;
         EditText editText_Mac;
         Button button_Edit;
@@ -90,7 +88,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewID = itemView.findViewById(R.id.text_id);
             editText_Name = itemView.findViewById(R.id.edittext_name);
             editText_Mac = itemView.findViewById(R.id.edittext_mac);
             button_Delete = itemView.findViewById(R.id.button_delete);

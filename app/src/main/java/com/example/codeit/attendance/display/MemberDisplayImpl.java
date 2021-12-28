@@ -37,15 +37,6 @@ public class MemberDisplayImpl implements MemberDisplay {
 
         memberList = new ArrayList<Member>();
 
-        /*memberList.add(new Member("Cengiz", "04654654489"));
-        memberList.add(new Member("haydar", "9498498"));
-        memberList.add(new Member("Kemal", "15941987498"));
-        memberList.add(new Member("Congulus", "475637856785"));
-        memberList.add(new Member("Necdet", "7524121"));
-        memberList.add(new Member("Zımzımettin", "7578"));
-        memberList.add(new Member("Şemelemettin", "456345678"));
-        memberList.add(new Member("Niyazi", "151965"));*/
-
         RecyclerViewAdapter adapter_items = new RecyclerViewAdapter(memberList, new ICustomItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {

@@ -1,7 +1,6 @@
 kendi yaptigin CRUD islemlerini bu pakete tasi
 
-LIST butonuna basinca yeni bir activity(xml sayfasi) acilsin. eskisine zarar vermesin, Back butonuna
-basinca eskisine donebilirim hatta.
+LIST butonuna basinca yeni bir activity(xml sayfasi) acilsin.
 
 bu yeni sayfada da direk CRUD fonksiyonlarından Read calissin. db deki veriler listelensin.
 

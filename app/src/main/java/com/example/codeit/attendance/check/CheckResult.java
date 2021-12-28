@@ -10,17 +10,17 @@ public class CheckResult {
     /**
      * Derse gelmis kayitli ogrenciler
      */
-    private final List<Member> presentMembers;
+    private List<Member> presentMembers;
 
     /**
      * Derse gelmis ama kayitli olmayan ogrenciler
      */
-    private final List<Member> unregisteredMembers;
+    private List<Member> unregisteredMembers;
 
     /**
      * Derse gelmemis ogrenciler
      */
-    private final List<Member> absentMembers;
+    private List<Member> absentMembers;
 
     public CheckResult() {
         this.presentMembers = new ArrayList<>();
@@ -41,9 +41,63 @@ public class CheckResult {
     }
 
     public void evaluateResult(List<Member> checkedMembers, List<Member> registeredMembers) {
+
+        presentMembers = findCommonMembersWithMac(checkedMembers, registeredMembers);
+
+        unregisteredMembers = findMissingMembersWithMac(checkedMembers, registeredMembers);
+
+        absentMembers = findMissingMembersWithMac(registeredMembers, checkedMembers);
+
         //TODO: aunal: bu iki listeyi kullanarak asagidaki adamlari hesapla
         // - listemde olup db de de olanlar (BURDA!) presentMembers
         // - listemde olup db de olmayanlar (kayıt edilmemiş olanlar) unregisteredMembers
         // - listemde olmayıp db de olanlar (kayitli ama derse gelmemiş) absentMembers
+    }
+
+    private List<Member> findMissingMembersWithMac(List<Member> arrayListFirst, List<Member> arrayListSecond) {
+        ArrayList<String> macListFirst = new ArrayList<>();
+        ArrayList<String> macListSecond = new ArrayList<>();
+        List<Member> targetList = new ArrayList<>();
+
+        for (Member member : arrayListFirst) {
+            macListFirst.add(member.getMac());
+        }
+        for (Member member : arrayListSecond) {
+            macListSecond.add(member.getMac());
+        }
+
+        macListFirst.removeAll(macListSecond);
+
+        for (Member member : arrayListFirst) {
+            for (String mac : macListFirst) {
+                if (member.getMac() == mac) {
+                    targetList.add(member);
+                    break;
+                }
+            }
+        }
+        return targetList;
+    }
+
+    private List<Member> findCommonMembersWithMac(List<Member> arrayListFirst, List<Member> arrayListSecond) {
+        List<Member> targetList = new ArrayList<>();
+
+        for (Member memberFirst : arrayListFirst) {
+            for (Member memberSecond : arrayListSecond) {
+                if (memberFirst.getMac() == memberSecond.getMac())
+                    targetList.add(memberFirst);
+            }
+        }
+        return targetList;
+    }
+
+    private List<Member> findMissingMembers(List<Member> arrayListFirst, List<Member> arrayListSecond) {
+        arrayListFirst.removeAll(arrayListSecond);
+        return arrayListFirst;
+    }
+
+    private List<Member> findCommonMembers(List<Member> arrayListFirst, List<Member> arrayListSecond) {
+        arrayListFirst.retainAll(arrayListSecond);
+        return arrayListFirst;
     }
 }
