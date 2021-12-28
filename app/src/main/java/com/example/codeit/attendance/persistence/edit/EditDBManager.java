@@ -2,78 +2,66 @@ package com.example.codeit.attendance.persistence.edit;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 
 import com.example.codeit.attendance.MainActivity;
 import com.example.codeit.attendance.R;
 import com.example.codeit.attendance.consepts.member.Member;
 import com.example.codeit.attendance.persistence.DBHelper;
 
-public class EditDBManager extends MainActivity {
+public class EditDBManager {
 
-    /*Button button_add,button_view_edit;
-    EditText editText_name,editText_mac;
+    private final MainActivity mainActivity;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public EditDBManager(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
 
-        button_add=findViewById(R.id.btn_add);
-        button_view_edit=findViewById(R.id.button_edit);
-        editText_name = findViewById(R.id.edittext_name);
-        editText_mac = findViewById(R.id.edittext_mac);
+    public void initialize() {
+        Button button_add = mainActivity.findViewById(R.id.btn_add);
+        EditText editText_name = mainActivity.findViewById(R.id.edittext_name);
+        EditText editText_mac = mainActivity.findViewById(R.id.edittext_mac);
+        button_add.setOnClickListener(buttonAddClickListener(editText_name, editText_mac));
 
-        button_add.setOnClickListener(new View.OnClickListener() {
+        Button button_view_edit = mainActivity.findViewById(R.id.btnListUsers);
+        button_view_edit.setOnClickListener(buttonListClickListener());
+    }
+
+    @NonNull
+    private View.OnClickListener buttonListClickListener() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringName = editText_name.getText().toString();
-                String stringMac = editText_mac.getText().toString();
+                Intent intent = new Intent(mainActivity, ViewAndEditDBActivity.class);
+                mainActivity.startActivity(intent);
+            }
+        };
+    }
 
-                if (stringName.length() <= 0 || stringMac.length() <= 0) {
-                    Toast.makeText(v.getContext(), "Boş bırakma dayı", Toast.LENGTH_SHORT).show();
+    @NonNull
+    private View.OnClickListener buttonAddClickListener(EditText editText_name,
+            EditText editText_mac) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editText_name.getText().toString();
+                String mac = editText_mac.getText().toString();
+
+                if (name.isEmpty() || mac.isEmpty()) {
+                    Toast.makeText(mainActivity, "Boş bırakma dayı", Toast.LENGTH_SHORT).show();
                 } else {
-                    DBHelper dbHelper = new DBHelper(v.getContext());
-                    Member member = new Member(stringName, stringMac);
-                    dbHelper.create(member);
-                    Toast.makeText(v.getContext(), "Kullanıcı eklendi", Toast.LENGTH_SHORT).show();
-
-                    finish();
-                    startActivity(getIntent());
+                    try (DBHelper dbHelper = new DBHelper(mainActivity)) {
+                        Member member = new Member(name, mac);
+                        dbHelper.create(member);
+                    }
+                    Toast.makeText(mainActivity, "Kullanıcı eklendi", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
-
-        button_view_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewAndEditDBActivity.class);
-                startActivity(intent);
-            }
-        });
-    }*/
-
-
-    /*Button button_list;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        button_list = findViewById(R.id.btnListUsers);
-
-        button_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),ViewAndEditDBActivity.class);
-                startActivity(intent);
-            }
-        });
-    }*/
+        };
+    }
 }

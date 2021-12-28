@@ -23,6 +23,10 @@ public class ViewAndEditDBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_edit_db);
 
+        refreshFromDb();
+    }
+
+    private void refreshFromDb() {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -31,10 +35,10 @@ public class ViewAndEditDBActivity extends AppCompatActivity {
         List<Member> members = dbHelper.readAll();
 
         if (members.size() > 0) {
-            MemberAdapter memberAdapter = new MemberAdapter(members,ViewAndEditDBActivity.this);
+            MemberAdapter memberAdapter = new MemberAdapter(members, ViewAndEditDBActivity.this);
             recyclerView.setAdapter(memberAdapter);
 
-        }else{
+        } else {
             Toast.makeText(this, "Veritabanı boş", Toast.LENGTH_SHORT).show();
         }
     }

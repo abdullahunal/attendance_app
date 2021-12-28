@@ -23,6 +23,7 @@ import com.example.codeit.attendance.layout.ComponentName;
 import com.example.codeit.attendance.layout.ComponentProvider;
 import com.example.codeit.attendance.persistence.DBHelper;
 import com.example.codeit.attendance.persistence.IDatabaseOperations;
+import com.example.codeit.attendance.persistence.edit.EditDBManager;
 import com.example.codeit.attendance.register.RegisterManager;
 
 import java.util.EnumMap;
@@ -81,6 +82,11 @@ public class AttendanceServer extends Server {
         AttendanceResultListener attendanceResultListener = new AttendanceResultListenerImpl(resultActivity);
         Button checkButton = componentProvider.getComponent(ComponentName.CHECK);
         CheckManager checkManager = new CheckManager(checkButton, display, databaseOps, attendanceResultListener);
+
+
+        EditDBManager editDBManager = new EditDBManager(mainActivity);
+        editDBManager.initialize();
+
 
 //        StatisticManager statisticManager = new StatisticManager();
 //        statisticManager.add(attendanceResultListener);
