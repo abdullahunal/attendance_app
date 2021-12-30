@@ -7,6 +7,13 @@ import java.util.List;
 
 public class CheckResult {
 
+    public static final String PRESENT_NAME = "PRESENT_NAME";
+    public static final String PRESENT_MAC = "PRESENT_MAC";
+    public static final String ABSENT_NAME = "ABSENT_NAME";
+    public static final String ABSENT_MAC = "ABSENT_MAC";
+    public static final String UNREGISTERED_NAME = "UNREGISTERED_NAME";
+    public static final String UNREGISTERED_MAC = "UNREGISTERED_MAC";
+
     /**
      * Derse gelmis kayitli ogrenciler
      */

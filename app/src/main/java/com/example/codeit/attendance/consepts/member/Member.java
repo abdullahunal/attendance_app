@@ -1,6 +1,8 @@
 package com.example.codeit.attendance.consepts.member;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
 
     private Integer id;
 

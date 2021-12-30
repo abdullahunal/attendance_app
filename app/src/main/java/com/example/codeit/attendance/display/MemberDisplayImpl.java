@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,9 +22,9 @@ public class MemberDisplayImpl implements MemberDisplay {
     private final List<Member> memberList;
     private final RecyclerView recycler_view;
     private final CardView cardView;
-    private final MainActivity mainActivity;
+    private final AppCompatActivity mainActivity;
 
-    public MemberDisplayImpl(MainActivity mainActivity, RecyclerView recycler_view, CardView cardView) {
+    public MemberDisplayImpl(AppCompatActivity mainActivity, RecyclerView recycler_view, CardView cardView) {
         this.recycler_view = recycler_view;
         this.cardView = cardView;
         this.mainActivity = mainActivity;

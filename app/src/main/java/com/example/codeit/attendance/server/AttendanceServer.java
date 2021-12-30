@@ -1,6 +1,7 @@
 package com.example.codeit.attendance.server;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
@@ -9,8 +10,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.codeit.attendance.MainActivity;
+import com.example.codeit.attendance.R;
 import com.example.codeit.attendance.check.AttendanceResultListener;
-import com.example.codeit.attendance.check.AttendanceResultListenerImpl;
+import com.example.codeit.attendance.check.AttendanceResultManager;
 import com.example.codeit.attendance.check.CheckManager;
 import com.example.codeit.attendance.check.ResultActivity;
 import com.example.codeit.attendance.connection.BluetoothConnection;
@@ -78,11 +80,9 @@ public class AttendanceServer extends Server {
         RegisterManager registerManager = new RegisterManager(btnRegister, display, databaseOps);
 
 
-        ResultActivity resultActivity = new ResultActivity(); // TODO: bunu sen yazacan, sonuclari listeleyecegin xml bu.
-        AttendanceResultListener attendanceResultListener = new AttendanceResultListenerImpl(resultActivity);
+        AttendanceResultListener attendanceResultListener = new AttendanceResultManager(mainActivity);
         Button checkButton = componentProvider.getComponent(ComponentName.CHECK);
         CheckManager checkManager = new CheckManager(checkButton, display, databaseOps, attendanceResultListener);
-
 
         EditDBManager editDBManager = new EditDBManager(mainActivity);
         editDBManager.initialize();
