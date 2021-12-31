@@ -55,7 +55,7 @@ public class CheckResult {
 
         absentMembers = findMissingMembersWithMac(registeredMembers, checkedMembers);
 
-        //TODO: aunal: bu iki listeyi kullanarak asagidaki adamlari hesapla
+        //TODO: bu iki listeyi kullanarak asagidaki adamlari hesapla
         // - listemde olup db de de olanlar (BURDA!) presentMembers
         // - listemde olup db de olmayanlar (kayıt edilmemiş olanlar) unregisteredMembers
         // - listemde olmayıp db de olanlar (kayitli ama derse gelmemiş) absentMembers

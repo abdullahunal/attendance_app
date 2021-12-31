@@ -37,6 +37,4 @@ public class CheckManager implements View.OnClickListener {
         checkResult.evaluateResult(display.getMembers(), databaseOps.readAll());
         attendanceResultListener.attendanceDone(checkResult);
     }
-
-
 }

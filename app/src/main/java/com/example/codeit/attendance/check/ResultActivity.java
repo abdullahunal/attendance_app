@@ -39,11 +39,14 @@ public class ResultActivity extends AppCompatActivity {
 
         List<Member> presentMembers = new ArrayList<>();
 
-
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String mac = intent.getStringExtra("mac");
-        presentMembers.add(new Member(name,mac));
+
+        String[] name = intent.getStringArrayExtra("name");
+        String[] mac = intent.getStringArrayExtra("mac");
+
+        for (int i = 0; i < name.length; i++) {
+            presentMembers.add(new Member(name[i], mac[i]));
+        }
 
 
         RecyclerViewAdapter adapter_items = new RecyclerViewAdapter(presentMembers, new ICustomItemClickListener() {
@@ -53,7 +56,16 @@ public class ResultActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView.setAdapter(adapter_items);
+        if (presentMembers.size() > 0) {
+            try {
+                recyclerView.setAdapter(adapter_items);
+            } catch (Exception e) {
+                Toast.makeText(this, "Exception fırlatıldı", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Liste boş", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
 

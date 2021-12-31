@@ -21,8 +21,9 @@ public class AttendanceResultManager implements AttendanceResultListener {
 
         Intent intent = new Intent(mainActivity.getApplicationContext(), ResultActivity.class);
 
-        intent.putExtra("name","name");
-        intent.putExtra("mac","mac");
+        intent.putExtra(CheckResult.PRESENT_NAME, result.getPresentMembers().toArray());
+        intent.putExtra(CheckResult.PRESENT_MAC,result.getPresentMembers().toArray());
+
         mainActivity.startActivity(intent);
     }
 }
