@@ -1,48 +1,22 @@
 package com.example.codeit.attendance.layout;
 
 import android.view.View;
-
-import com.example.codeit.attendance.MainActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.codeit.attendance.R;
 
 import java.util.EnumMap;
-import java.util.Objects;
 
 /**
  * Holds layout components. Each component is type of a {@link View} instance.
  * <p>
  * A component can be a Button, TextView, Slider etc.
  */
-public class ComponentProvider {
+public class ComponentContainer {
 
-    private static ComponentProvider instance;
+    private final EnumMap<ComponentName, View> components;
 
-    private ComponentProvider() {
-        //Prevent form the reflection api.
-        if (instance != null) {
-            throw new RuntimeException(
-                    "Use getInstance() method to get the single instance of this class.");
-        }
-    }
-
-    public static ComponentProvider getInstance() {
-        if (instance == null) {
-            synchronized (ComponentProvider.class) {
-                if (instance == null) instance = new ComponentProvider();
-            }
-        }
-        return instance;
-    }
-
-    // -------------------------------------------- -------------------------------------------- \\
-
-    private EnumMap<ComponentName, View> components;
-
-    public EnumMap<ComponentName, View> getComponents(MainActivity mainActivity) {
-        Objects.requireNonNull(mainActivity);
-        if (components == null)
-            components = parseXmlLayoutToComponents(mainActivity);
-        return components;
+    public ComponentContainer(AppCompatActivity mainActivity) {
+        this.components = parseXmlLayoutToComponents(mainActivity);
     }
 
     public <T extends View> T getComponent(ComponentName componentName) {
@@ -51,10 +25,9 @@ public class ComponentProvider {
         return (T) view;
     }
 
-    private EnumMap<ComponentName, View> parseXmlLayoutToComponents(MainActivity mainActivity) {
+    private EnumMap<ComponentName, View> parseXmlLayoutToComponents(AppCompatActivity mainActivity) {
 
         EnumMap<ComponentName, View> views = new EnumMap<>(ComponentName.class);
-
 
         views.put(ComponentName.MAIN_LAYOUT, mainActivity.findViewById(R.id.main_layout));
 

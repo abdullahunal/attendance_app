@@ -1,9 +1,7 @@
 package com.example.codeit.attendance;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.codeit.attendance.server.AttendanceServer;
 import com.example.codeit.attendance.server.Server;
 
