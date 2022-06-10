@@ -98,6 +98,24 @@ public class DBHelper extends SQLiteOpenHelper implements IDatabaseOperations {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Optional<Member> readByAddress(String mac) {
-        return Optional.empty();
+        String sql = "select * from " + TABLE_NAME + " where " + MAC + " = " + "\"" + mac + "\"";
+        sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
+
+        List<Member> memberList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(cursor.getString(0));
+                String name = cursor.getString(1);
+                String mac2 = cursor.getString(2);
+                memberList.add(new Member(id, name, mac2));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        if (memberList.size() == 1) {
+            return Optional.of(memberList.get(0));
+        } else {
+            return Optional.empty();
+        }
     }
 }

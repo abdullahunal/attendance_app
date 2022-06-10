@@ -28,7 +28,7 @@ public class BluetoothConnectionListenerImpl implements BluetoothConnectionListe
     @Override
     public void bluetoothDeviceDisconnected(BluetoothDevice device) {
         Member member = new BluetoothMember(device);
-//        display.removeMember(member);
+        display.removeMember(member);
         LOG.info("Device connection has closed. Member name: " + member.getName());
     }
 }

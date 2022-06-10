@@ -1,9 +1,17 @@
 package com.example.codeit.attendance.server;
 
+import static com.example.codeit.attendance.layout.ComponentName.CARD_VIEW;
+import static com.example.codeit.attendance.layout.ComponentName.CHECK;
+import static com.example.codeit.attendance.layout.ComponentName.CONNECTED_DEVICES;
+import static com.example.codeit.attendance.layout.ComponentName.CONNECTION_ON_OF;
+import static com.example.codeit.attendance.layout.ComponentName.REGISTER;
+
 import android.widget.Button;
 import android.widget.ToggleButton;
+
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.codeit.attendance.MainActivity;
 import com.example.codeit.attendance.check.AttendanceResultListener;
 import com.example.codeit.attendance.check.AttendanceResultManager;
@@ -19,8 +27,6 @@ import com.example.codeit.attendance.persistence.DBHelper;
 import com.example.codeit.attendance.persistence.IDatabaseOperations;
 import com.example.codeit.attendance.persistence.edit.EditDBManager;
 import com.example.codeit.attendance.register.RegisterManager;
-
-import static com.example.codeit.attendance.layout.ComponentName.*;
 
 public class AttendanceServer extends Server {
 

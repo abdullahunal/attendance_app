@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.codeit.attendance.consepts.export.ExcelExportation;
 import com.example.codeit.attendance.display.MemberDisplay;
 import com.example.codeit.attendance.persistence.IDatabaseOperations;
 
@@ -33,8 +34,9 @@ public class CheckManager implements View.OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) { // check button
         checkResult.evaluateResult(display.getMembers(), databaseOps.readAll());
+        ExcelExportation.exportToExcel(checkResult);
         attendanceResultListener.attendanceDone(checkResult);
     }
 }

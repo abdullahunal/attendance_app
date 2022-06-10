@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.codeit.attendance.MainActivity;
 import com.example.codeit.attendance.consepts.member.Member;
 
 import java.util.ArrayList;
@@ -60,14 +59,28 @@ public class MemberDisplayImpl implements MemberDisplay {
 
     @Override
     public void addMember(Member member) {
+        for (Member member1 : memberList) {
+            if (member1.getMac().compareToIgnoreCase(member.getMac()) == 0) {
+                return;
+            }
+        }
         memberList.add(member);
         updateDisplay();
     }
 
     @Override
     public void removeMember(Member member) {
-        memberList.remove(member);
-        updateDisplay();
+        Member memberFound = null;
+        for (Member member1 : memberList) {
+            if (member1.getMac().compareToIgnoreCase(member.getMac()) == 0) {
+                memberFound =  member1;
+                break;
+            }
+        }
+        if(memberFound != null){
+            memberList.remove(memberFound);
+            updateDisplay();
+        }
     }
 
     private synchronized void updateDisplay() {

@@ -4,7 +4,6 @@ import static android.bluetooth.BluetoothDevice.ACTION_ACL_CONNECTED;
 import static android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECTED;
 import static android.bluetooth.BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED;
 
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,7 +19,7 @@ public class ConnectedDeviceManager {
     private final BluetoothConnectionListener connectionListener;
 
     public ConnectedDeviceManager(MainActivity mainActivity,
-            BluetoothConnectionListener connectionListener) {
+                                  BluetoothConnectionListener connectionListener) {
         this.mainActivity = mainActivity;
         this.connectionListener = connectionListener;
     }
@@ -39,9 +38,10 @@ public class ConnectedDeviceManager {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             BluetoothDevice connectedDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (ACTION_ACL_CONNECTED.equals(action)){
+            if (ACTION_ACL_CONNECTED.equals(action)) {
                 connectionListener.bluetoothDeviceConnected(connectedDevice);
-                // TODO: aunal: baglanti yakalandi, burada disconnect yapilacak!
+            } else if (ACTION_ACL_DISCONNECTED.equals(action)) {
+                connectionListener.bluetoothDeviceDisconnected(connectedDevice);
             }
 
 //            switch (action) {

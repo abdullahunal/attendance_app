@@ -53,7 +53,7 @@ public class EditDBManager {
                 String mac = editText_mac.getText().toString();
 
                 if (name.isEmpty() || mac.isEmpty()) {
-                    Toast.makeText(mainActivity, "Boş bırakma dayı", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mainActivity, "Boş bırakmayın", Toast.LENGTH_SHORT).show();
                 } else {
                     try (DBHelper dbHelper = new DBHelper(mainActivity)) {
                         Member member = new Member(name, mac);

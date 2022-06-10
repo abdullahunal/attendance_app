@@ -62,7 +62,23 @@ public class CheckResult {
     }
 
     private List<Member> findMissingMembersWithMac(List<Member> arrayListFirst, List<Member> arrayListSecond) {
-        ArrayList<String> macListFirst = new ArrayList<>();
+        List<Member> differences = new ArrayList<>();
+
+        for (Member firstMember : arrayListFirst) {
+            boolean found = false;
+            for (Member secondMember : arrayListSecond) {
+                if (firstMember.getMac().compareToIgnoreCase(secondMember.getMac()) == 0) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                differences.add(firstMember);
+            }
+        }
+        return differences;
+
+        /*ArrayList<String> macListFirst = new ArrayList<>();
         ArrayList<String> macListSecond = new ArrayList<>();
         List<Member> targetList = new ArrayList<>();
 
@@ -83,7 +99,7 @@ public class CheckResult {
                 }
             }
         }
-        return targetList;
+        return targetList;*/
     }
 
     private List<Member> findCommonMembersWithMac(List<Member> arrayListFirst, List<Member> arrayListSecond) {
@@ -91,7 +107,7 @@ public class CheckResult {
 
         for (Member memberFirst : arrayListFirst) {
             for (Member memberSecond : arrayListSecond) {
-                if (memberFirst.getMac() == memberSecond.getMac())
+                if (memberFirst.getMac().compareToIgnoreCase(memberSecond.getMac()) == 0)
                     targetList.add(memberFirst);
             }
         }
@@ -99,8 +115,18 @@ public class CheckResult {
     }
 
     private List<Member> findMissingMembers(List<Member> arrayListFirst, List<Member> arrayListSecond) {
-        arrayListFirst.removeAll(arrayListSecond);
-        return arrayListFirst;
+        List<Member> targetList = new ArrayList<>();
+
+        for (Member memberFirst : arrayListFirst) {
+            for (Member memberSecond : arrayListSecond) {
+                if (memberFirst.getMac().compareTo(memberSecond.getMac()) != 0)
+                    targetList.add(memberSecond);
+            }
+        }
+        return targetList;
+
+        /*arrayListFirst.removeAll(arrayListSecond);
+        return arrayListFirst;*/
     }
 
     private List<Member> findCommonMembers(List<Member> arrayListFirst, List<Member> arrayListSecond) {

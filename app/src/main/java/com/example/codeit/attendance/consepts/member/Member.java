@@ -21,6 +21,11 @@ public class Member implements Serializable {
         this.mac = mac;
     }
 
+    public Member(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

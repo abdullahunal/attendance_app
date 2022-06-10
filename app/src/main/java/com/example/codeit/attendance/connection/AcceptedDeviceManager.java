@@ -60,7 +60,6 @@ public class AcceptedDeviceManager {
         }
     }
 
-//    // Don't forget to unregister the ACTION_FOUND receiver.
 //    unregisterReceiver(receiver);
 
     private class BtReceiver extends BroadcastReceiver {
@@ -88,7 +87,6 @@ public class AcceptedDeviceManager {
             @Override
             public void run() {
                 BluetoothSocket socket = null;
-                // Keep listening until exception occurs or a socket is returned.
                 while (true) {
                     try {
                         socket = mmServerSocket.accept();
@@ -98,8 +96,6 @@ public class AcceptedDeviceManager {
                     }
 
                     if (socket != null) {
-                        // A connection was accepted. Perform work associated with
-                        // the connection in a separate thread.
                         try {
                             manageMyConnectedSocket(socket);
                             mmServerSocket.close();

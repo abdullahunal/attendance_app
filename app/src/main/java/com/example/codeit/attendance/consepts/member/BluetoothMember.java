@@ -11,7 +11,7 @@ public class BluetoothMember extends Member {
     private List<String> attributes;
 
     public BluetoothMember(BluetoothDevice bluetoothDevice) {
-        super(bluetoothDevice.getAddress(), bluetoothDevice.getName());
+        super(bluetoothDevice.getName(), bluetoothDevice.getAddress());
     }
 
     public BluetoothMember(String deviceName, String mac) {
