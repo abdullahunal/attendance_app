@@ -7,6 +7,7 @@ import android.widget.Button;
 import androidx.annotation.RequiresApi;
 
 import com.example.codeit.attendance.consepts.export.ExcelExportation;
+import com.example.codeit.attendance.consepts.member.Member;
 import com.example.codeit.attendance.display.MemberDisplay;
 import com.example.codeit.attendance.persistence.IDatabaseOperations;
 
@@ -23,7 +24,7 @@ public class CheckManager implements View.OnClickListener {
     private final CheckResult checkResult;
 
     public CheckManager(Button loginButton, MemberDisplay display,
-            IDatabaseOperations databaseOps, AttendanceResultListener attendanceResultListener) {
+                        IDatabaseOperations databaseOps, AttendanceResultListener attendanceResultListener) {
         this.loginButton = loginButton;
         this.display = display;
         this.databaseOps = databaseOps;
